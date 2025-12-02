@@ -10,7 +10,6 @@ enum TurnDirection {
 }
 
 pub struct Sequence {
-    initial_dial: u32,
     current_dial: u32,
     min_dial: u32,
     max_dial: u32,
@@ -25,7 +24,6 @@ impl Sequence {
         rotations_file_path: PathBuf,
     ) -> Self {
         Self {
-            initial_dial,
             current_dial: initial_dial,
             min_dial,
             max_dial,
