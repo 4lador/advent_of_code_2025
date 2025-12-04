@@ -1,4 +1,5 @@
 use std::{
+    collections::HashSet,
     error::Error,
     fs::read_to_string,
     path::{Path, PathBuf},
@@ -6,9 +7,14 @@ use std::{
 
 use crate::puzzles::day2::range::Range;
 
+pub enum ChallengePart {
+    PartOne,
+    PartTwo,
+}
+
 pub struct Challenge {
     ranges: Vec<Range>,
-    invalid_ids: Vec<u64>,
+    invalid_ids: HashSet<u64>,
 }
 
 impl Challenge {
@@ -38,17 +44,27 @@ impl Challenge {
 
         Self {
             ranges: ranges.unwrap_or(vec![]),
-            invalid_ids: vec![],
+            invalid_ids: HashSet::new(),
         }
     }
 
-    pub fn solve(&mut self) -> Option<u64> {
+    pub fn solve(&mut self, part: ChallengePart) -> Option<u64> {
         for range in &self.ranges {
             println!("Range: min={}, max={}", range.min, range.max);
 
-            if let Some(invalids) = range.find_invalids() {
-                println!("Invalid IDs: {:?}", invalids);
-                self.invalid_ids.extend(invalids)
+            match part {
+                ChallengePart::PartOne => {
+                    if let Some(invalids) = range.find_invalids_part_1() {
+                        println!("Invalid IDs: {:?}", invalids);
+                        self.invalid_ids.extend(invalids);
+                    }
+                }
+                ChallengePart::PartTwo => {
+                    if let Some(invalids) = range.find_invalids_part_2() {
+                        println!("Invalid IDs: {:?}", invalids);
+                        self.invalid_ids.extend(invalids);
+                    }
+                }
             }
         }
 

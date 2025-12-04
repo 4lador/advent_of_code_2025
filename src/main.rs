@@ -3,6 +3,8 @@ use std::path::PathBuf;
 mod puzzles;
 mod utils;
 
+use puzzles::day2::challenge::ChallengePart;
+
 fn main() {
     start_day_2();
 }
@@ -24,7 +26,7 @@ fn start_day_1() {
 fn start_day_2() {
     let ranges_file = PathBuf::from("assets/puzzle2/input.txt");
     let mut challenge = puzzles::day2::challenge::Challenge::new(ranges_file);
-    match challenge.solve() {
+    let _ = match challenge.solve(ChallengePart::PartTwo) {
         Some(answer) => println!("Challenge answer is {}", answer),
         None => println!("Nothing found ! :("),
     };
