@@ -1,9 +1,10 @@
 use std::path::PathBuf;
 
 mod puzzles;
+mod utils;
 
 fn main() {
-    start_day_1();
+    start_day_2();
 }
 
 fn start_day_1() {
@@ -18,4 +19,13 @@ fn start_day_1() {
             panic!("An error occured while looking for day1 challenge result: ");
         }
     }
+}
+
+fn start_day_2() {
+    let ranges_file = PathBuf::from("assets/puzzle2/input.txt");
+    let mut challenge = puzzles::day2::challenge::Challenge::new(ranges_file);
+    match challenge.solve() {
+        Some(answer) => println!("Challenge answer is {}", answer),
+        None => println!("Nothing found ! :("),
+    };
 }
